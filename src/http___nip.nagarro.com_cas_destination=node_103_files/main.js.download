@@ -1,0 +1,43 @@
+// JavaScript Document
+(function($) {
+
+	$(document).ready(function(e) {			
+		//--------- Tab Functionality in Ipad aur Mobile
+		$(document).on('click', '.tabs-content-btn', function(){
+			var getId = $(this).attr('id');
+			$('.tabs-content-btn').removeClass('selected');
+			$(this).addClass('selected');
+			$('.tabs-content').removeClass('show');
+			$('.func-'+getId).addClass('show');
+		})	
+		//--------- Profile.html Collapse functionality
+		$(document).on('click', '.box4 .title-blue .glyphicon', function(){
+			var getId = $(this).attr('id');
+			$(this).toggleClass('glyphicon-chevron-down');
+			$('.'+getId).slideToggle();
+		});
+		//--------- Profile.html Edit btn functionality
+		$(document).on('click', '#form-edit-btn', function(){
+			var getTarget = $(this).parents('.form-horizontal');
+			getTarget.find('.form-edit-field').show();			
+			getTarget.find('.form-value-field').hide();
+			getTarget.find('.form-save-btn').show();
+			$(this).hide();
+		});	
+		//--------- Profile.html Save btn functionality
+		$(document).on('click', '#form-save-btn', function(){
+			var getTarget = $(this).parents('.form-horizontal');
+			getTarget.find('.form-value-field').show();			
+			getTarget.find('.form-edit-field').hide();
+			getTarget.find('.form-edit-btn').show();
+			$(this).hide();
+		});	
+		$(document).on('click', '.btn-login', function(){			
+			$('.error').text('You could not be authenticated.');
+			$('.error').removeClass('hide');
+			return false;
+		});	
+
+	
+ });
+})(jQuery);

@@ -1,0 +1,39 @@
+$(document).ready(function(e) {
+	
+	
+	function htmlEscape(str) {
+		return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+	}
+	
+	$.getJSON("sites/view", function(data) {
+		for(var index=0; index < data.length; index++) {
+			var websiteInfo = data[index];
+			var websiteName = htmlEscape(websiteInfo.websiteName);
+			var websiteURL = encodeURI(websiteInfo.websiteUrl);
+			var websiteDescription = htmlEscape(websiteInfo.websiteDescription);
+			if (index % 5 == 0)
+				$("#websites-info").append(" <div class=\"col-sm-4 col-xs-6\"><h2 class=\"color-blue\">"+ websiteName +"</h2><div class=\"image\" style=\"width:360px; height:270px;\"><img src=\"/data/images/"+ websiteInfo.websiteImgName +"\"/><div class=\"mask\"><a href='" + websiteURL + "'><span class=\"glyphicon glyphicon-arrow-right\">&nbsp;</span><br/>Go to&nbsp;"+ websiteName+"</a></div></div><div class=\"web-content\"title=\"" + websiteDescription+" \">"+websiteDescription +"</div></div>");
+			else if (index % 5 == 1)
+				$("#websites-info").append(" <div class=\"col-sm-4 col-xs-6\"><h2 class=\"color-green\">"+ websiteName +"</h2><div class=\"image\" style=\"width:360px; height:270px;\"><img src=\"/data/images/"+ websiteInfo.websiteImgName +"\"/><div class=\"mask\"><a href='" + websiteURL + "'><span class=\"glyphicon glyphicon-arrow-right\">&nbsp;</span><br/>Go to&nbsp;"+ websiteName+"</a></div></div><div class=\"web-content\"title=\"" + websiteDescription+" \">"+websiteDescription +"</div></div>");
+			else if (index % 5 == 2)
+				$("#websites-info").append(" <div class=\"col-sm-4 col-xs-6\"><h2 class=\"color-red\">"+ websiteName +"</h2><div class=\"image\" style=\"width:360px; height:270px;\"><img src=\"/data/images/"+ websiteInfo.websiteImgName +"\"/><div class=\"mask\"><a href='" + websiteURL + "'><span class=\"glyphicon glyphicon-arrow-right\">&nbsp;</span><br/>Go to&nbsp;"+ websiteName+"</a></div></div><div class=\"web-content\"title=\"" + websiteDescription+" \">"+websiteDescription +"</div></div>");
+			else if (index % 5 == 3)
+				$("#websites-info").append(" <div class=\"col-sm-4 col-xs-6\"><h2 class=\"color-purple\">"+ websiteName +"</h2><div class=\"image\" style=\"width:360px; height:270px;\"><img src=\"/data/images/"+ websiteInfo.websiteImgName +"\"/><div class=\"mask\"><a href='" + websiteURL + "'><span class=\"glyphicon glyphicon-arrow-right\">&nbsp;</span><br/>Go to&nbsp;"+ websiteName+"</a></div></div><div class=\"web-content\"title=\"" + websiteDescription+" \">"+websiteDescription +"</div></div>");
+			else
+				$("#websites-info").append(" <div class=\"col-sm-4 col-xs-6\"><h2 class=\"color-yellow\">"+ websiteName +"</h2><div class=\"image\" style=\"width:360px; height:270px;\"><img src=\"/data/images/"+ websiteInfo.websiteImgName +"\"/><div class=\"mask\"><a href='" + websiteURL + "'><span class=\"glyphicon glyphicon-arrow-right\">&nbsp;</span><br/>Go to&nbsp;"+ websiteName+"</a></div></div><div class=\"web-content\" title=\"" + websiteDescription+" \" >"+websiteDescription +"</div></div>");
+		}
+		
+		$(".image").click(function(){
+			location.href = $(this).parent().find('a').attr('href');
+		});
+		
+	}).fail(function() {
+		$("#websites-info").html("<div class='service-error'><h1>An error occured while getting data from server. Please try again after some time.</h1></div>");
+	});
+	
+});
